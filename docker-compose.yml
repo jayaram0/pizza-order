@@ -12,3 +12,26 @@ services:
       - ./app:/app
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=pizza-order
+      - DB_USER=root
+      - DB_PASS=Jayaram0
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.1.0
+    volumes:
+      - pizza-order-db-data:/var/lib/mysql/data
+    environment:
+      - MYSQL_DB=pizza-order
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Jayaram0
+    ports:
+      - "3306:3306"
+
+
+
+volumes:
+  pizza-order-db-data:
